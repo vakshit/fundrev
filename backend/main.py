@@ -6,6 +6,7 @@ import matplotlib
 import pymongo
 import bcrypt
 import jwt
+import os
 from datetime import datetime, timedelta
 from flask_cors import CORS
 import pandas as pd
@@ -16,7 +17,7 @@ matplotlib.use("Agg")
 app = Flask(__name__)
 CORS(app)
 
-mongo = pymongo.MongoClient(host="mongodb://root:example@localhost:27017/")
+mongo = pymongo.MongoClient(host=os.environ["MONGO_HOST"])
 
 app.config["SECRET_KEY"] = "your_secret_key"
 investors = mongo["user_db"].investors
