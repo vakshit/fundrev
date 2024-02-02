@@ -41,7 +41,7 @@ const StartupDashboard = () => {
       try {
         // POST request to your server endpoint to handle CSV processing
         const response = await axios.post(
-          "http://localhost:5000/upload",
+          `${process.env.REACT_APP_API_URL}/upload`,
           formData,
           {
             headers: {
@@ -51,7 +51,7 @@ const StartupDashboard = () => {
           }
         );
         const data = response.data;
-        setChartData(`http://localhost:5000/static/${data}.png`);
+        setChartData(`${process.env.REACT_APP_API_URL}/static/${data}.png`);
       } catch (error) {
         // Handle error
         console.error("Error uploading file:", error);
@@ -63,7 +63,7 @@ const StartupDashboard = () => {
     const fetchDbUser = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/startup/investors",
+          `${process.env.REACT_APP_API_URL}/startup/investors`,
           {
             headers: {
               Authorization: authToken,
@@ -150,11 +150,14 @@ const InvestorDashboard = () => {
   useEffect(() => {
     const fetchCompanyInfo = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/company/list", {
-          headers: {
-            Authorization: authToken,
-          },
-        });
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/company/list`,
+          {
+            headers: {
+              Authorization: authToken,
+            },
+          }
+        );
         setCompanyInfo(response.data);
       } catch (error) {
         console.error("Error fetching company info:", error);
@@ -167,7 +170,7 @@ const InvestorDashboard = () => {
   const interestHandler = async (companyId) => {
     try {
       await axios.post(
-        "http://localhost:5000/investor/interested",
+        `${process.env.REACT_APP_API_URL}/investor/interested`,
         { startup_id: companyId },
         {
           headers: {

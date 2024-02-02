@@ -35,7 +35,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const resp = await axios.post("http://localhost:5000/login", {
+      const resp = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
         ...userDetails,
         user_type: userType,
       });
@@ -44,7 +44,7 @@ const LoginPage = () => {
       setError("");
       navigate(`/dashboard/${userType}`);
     } catch (error) {
-      console.log(error.response);
+      console.error(error.response);
       setError(error.response.data.message);
     }
   };

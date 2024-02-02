@@ -40,26 +40,22 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (userType === "investor") {
-      console.log("Investor Details:", investorDetails);
       try {
-        const resp = await axios.post("http://localhost:5000/signup", {
+        await axios.post(`${process.env.REACT_APP_API_URL}/signup`, {
           ...investorDetails,
           user_type: userType,
         });
-        console.log(resp);
       } catch (error) {
-        console.log(error.response);
+        console.error(error.response);
       }
     } else {
-      console.log("Startup Details:", startupDetails);
       try {
-        const resp = await axios.post("http://localhost:5000/signup", {
+        await axios.post(`${process.env.REACT_APP_API_URL}/signup`, {
           ...startupDetails,
           user_type: userType,
         });
-        console.log(resp);
       } catch (error) {
-        console.log(error.response);
+        console.error(error.response);
       }
     }
     navigate("/");
