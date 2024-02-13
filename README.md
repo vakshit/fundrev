@@ -65,3 +65,21 @@
   - Path to the csv file or URL
 - Implement storage to s3 of the sales data to have better access control and fault tolerance.
 - Usage of ory stack for access control to the sales data of the startups by the investors.
+
+# How to run
+
+If docker and docker compose plugin is installed in the system, then the backend in run using the following command:
+
+```bash
+cd backend
+docker-compose up
+```
+
+The frontend can be run using the following command:
+
+```bash
+cd frontend
+npm start
+```
+
+The frontend is running on port 3000 and the backend is running on port 5000. The frontend is connected to the backend using the URL in the frontend/.env file. The backend is connected to the MongoDB using the connection string in the docker-compose.yaml file.

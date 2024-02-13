@@ -17,7 +17,7 @@ matplotlib.use("Agg")
 app = Flask(__name__)
 CORS(app)
 
-mongo = pymongo.MongoClient(host=os.environ["MONGO_HOST"])
+mongo = pymongo.MongoClient(os.environ["MONGO_HOST"])
 
 app.config["SECRET_KEY"] = "your_secret_key"
 investors = mongo["user_db"].investors
@@ -233,4 +233,4 @@ def generate_bar_chart(data):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0", port=5000)

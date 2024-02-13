@@ -1,12 +1,30 @@
 version: '3.7'
 
+networks:
+  intranet:
+    driver: bridge
+
 services:
   mongodb:
     image: mongo:latest
     container_name: mongodb
     ports:
       - "27017:27017"
+    networks:
+      - intranet
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
       # MONGO_INITDB_DATABASE: user_db
+  
+  app:
+    build: .
+    networks:
+      - intranet
+    container_name: app
+    ports:
+      - "5000:5000"
+    environment:
+      MONGO_HOST: mongodb://root:example@mongodb:27017/
+    depends_on:
+      - mongodb
